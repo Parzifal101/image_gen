@@ -1,0 +1,43 @@
+# docker-compose.yaml (in the root directory)
+
+version: '3.8'
+
+services:
+  search_agent:
+    build: ./search_agent
+    container_name: search_agent
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./search_agent/.env
+    networks:
+      - app_network
+    depends_on:
+      - lora_service  # Optional: Ensures lora starts first if needed
+
+  lora_service:
+    build: ./lora_service
+    container_name: lora_service
+    ports:
+      - "8001:8000"
+    env_file:
+      - ./lora_service/.env  # Assume you create .env in lora_service if needed
+    networks:
+      - app_network
+
+  krakend:
+    image: devopsfaith/krakend:2.7.1  # Use a recent version
+    container_name: krakend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./krakend.json:/etc/krakend/krakend.json
+    networks:
+      - app_network
+    depends_on:
+      - search_agent
+      - lora_service
+
+networks:
+  app_network:
+    driver: bridge

@@ -1,0 +1,49 @@
+{
+    "version": 3,
+    "name": "API Gateway",
+    "timeout": "5s",
+    "cache_ttl": "300s",
+    "extra_config": {},
+    "endpoints": [
+      {
+        "endpoint": "/agent/{path}",
+        "method": "GET",
+        "backend": [
+          {
+            "url_pattern": "/{path}",
+            "host": ["http://search_agent:8000"]
+          }
+        ]
+      },
+      {
+        "endpoint": "/agent/{path}",
+        "method": "POST",
+        "backend": [
+          {
+            "url_pattern": "/{path}",
+            "host": ["http://search_agent:8000"]
+          }
+        ]
+      },
+      {
+        "endpoint": "/lora/{path}",
+        "method": "GET",
+        "backend": [
+          {
+            "url_pattern": "/{path}",
+            "host": ["http://lora_service:8000"]
+          }
+        ]
+      },
+      {
+        "endpoint": "/lora/{path}",
+        "method": "POST",
+        "backend": [
+          {
+            "url_pattern": "/{path}",
+            "host": ["http://lora_service:8000"]
+          }
+        ]
+      }
+    ]
+  }

@@ -1,0 +1,9 @@
+langchain_mistralai
+langchain_gigachat
+langgraph
+langchain_community
+langchain_core
+langchain_tavily
+fastapi
+uvicorn[standard]
+
